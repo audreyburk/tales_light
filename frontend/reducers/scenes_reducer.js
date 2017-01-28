@@ -26,6 +26,13 @@ const scenesReducer = (state = initialState, action) => {
       newState = merge(newState, {[action.scene.id]: action.scene});
       return newState;
 
+    case RECEIVE_SCENES:
+      newState = {};
+      action.scenes.forEach(scene => {
+        newState[scene.id] = scene;
+      });
+      return newState;
+
     default:
       return state;
   }

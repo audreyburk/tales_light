@@ -2,7 +2,7 @@ export const RECEIVE_SCENES = "RECEIVE_SCENES";
 export const RECEIVE_SCENE  = "RECEIVE_SCENE";
 
 export const receiveScenes = scenes => ({
-  type: RECEIVE_SCENE,
+  type: RECEIVE_SCENES,
   scenes: scenes
 });
 
