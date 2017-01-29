@@ -1,20 +1,18 @@
 import { merge } from "lodash";
 
-import { RECEIVE_SCENE, RECEIVE_SCENES } from "./../actions/scene_actions";
+import {
+  RECEIVE_SCENES,
+  RECEIVE_SCENE } from "./../actions/scene_actions";
 
 // testing only
 const initialState = {
   "1": {
     id: 1,
-    body: "Hallo.",
-    ins: [],
-    outs: [2]
+    body: "Hallo."
   },
   "2": {
     id: 2,
-    body: "Bya.",
-    ins: [1],
-    outs: []
+    body: "Bya."
   }
 };
 // ---

@@ -1,9 +1,14 @@
 import React from "react";
 
+import SceneReaderContainer from "./scenes/scene_reader_container";
+
 class App extends React.Component {
   render() {
     return(
-      <h1>Tales</h1>
+      <main>
+        <h1>Tales</h1>
+        <SceneReaderContainer />
+      </main>
     );
   }
 }

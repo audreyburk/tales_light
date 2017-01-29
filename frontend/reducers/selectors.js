@@ -4,3 +4,11 @@ export const allScenes = state => {
   });
   return scenes;
 };
+
+export const sceneById = (state, id) => {
+  return state.scenes[id];
+};
+
+export const currentScene = state => {
+  return state.currentScene;
+};
