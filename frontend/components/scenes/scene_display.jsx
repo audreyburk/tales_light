@@ -7,42 +7,37 @@ class SceneDisplay extends React.Component {
 
   handleClick(e, id) {
     e.preventDefault();
-    console.log(id);
     const scene = this.props.sceneById(id);
     this.props.focusScene(scene);
   }
 
-  bodyContent() {
-    // parsing assumes correct input
-    // it is checked before saving to db
+  parse(input = this.props.currentScene.body) {
+    const ce = React.createElement;
+    const children = input.map(chunk => {
+      switch(chunk.type){
+        case "break":
+          return ce("br");
 
-    const reTag = /(<\d+>)/;
-    const reId  = /(<(\d)+>)/;
-    const matches = this.props.currentScene.body.split(reTag);
+        case "text":
+          return chunk.text;
 
-    let counter = 1;
-    let children = matches.map((match, i, arr) => {
-      if(match.match(reTag)) {
-        counter = counter ^ 1;
-        if(counter === 0){
-          const id = match.match(reId)[2];
-          const props = { onClick: (e) => this.handleClick(e, id) };
-          return React.createElement("b", props, arr[i+1]);
-        } else {
-          return null;
-        }
-      } else {
-        return (counter === 0 ? null : match);
+        case "link":
+          const props = { onClick: (e) => this.handleClick(e, chunk.linkTo) };
+          return ce("b", props, chunk.text);
+
+        default:
+          throw("Bad scene data");
       }
-    }).filter(Boolean);
+    });
 
+    // dont want div if recursing...
     return React.createElement("div", null, ...children);
   }
 
   render() {
     return(
       <div>
-        {this.bodyContent()}
+        {this.parse()}
       </div>
     );
   }
