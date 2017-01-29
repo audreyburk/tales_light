@@ -8,11 +8,19 @@ import {
 const initialState = {
   "1": {
     id: 1,
-    body: "Hallo."
+    body: "<4>End.<4> Hallo."
   },
   "2": {
     id: 2,
-    body: "Bya."
+    body: "Twice. <1>Begin.<1>"
+  },
+  "3": {
+    id: 3,
+    body: "Thrice."
+  },
+  "4": {
+    id: 4,
+    body: "Quat. <1>Begin.<1>"
   }
 };
 // ---
