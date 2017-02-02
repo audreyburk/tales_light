@@ -1,8 +1,8 @@
 import React from "react";
 
-import SceneDisplay from "./scene_display";
+import ReaderDispay from "./reader_display";
 
-class SceneReader extends React.Component {
+class ReaderFrame extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -10,7 +10,7 @@ class SceneReader extends React.Component {
   render() {
     return(
       <div>
-        <SceneDisplay currentScene={this.props.currentScene}
+        <ReaderDispay currentScene={this.props.currentScene}
                       sceneById={this.props.sceneById}
                       focusScene={this.props.focusScene} />
       </div>
@@ -18,4 +18,4 @@ class SceneReader extends React.Component {
   }
 }
 
-export default SceneReader;
+export default ReaderFrame;

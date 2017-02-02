@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { currentScene, sceneById } from "./../../reducers/selectors";
 import { focusScene } from './../../actions/scene_actions';
 
-import SceneReader from "./scene_reader";
+import ReaderFrame from "./reader_frame";
 
 const mapStateToProps = state => ({
   currentScene: currentScene(state),
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SceneReader);
+)(ReaderFrame);
