@@ -5,11 +5,16 @@ function validateSelection(sel, type) {
   // a link should be allowed around ifs, though
   // as long as it doesnt split if/else
 
-  checkSplitRange(sel);
   checkCollapsed(sel);
+  checkMultipleRanges(sel);
   checkOutside(sel);
+  checkSplitRange(sel);
 
   if(type === "link") throw "link!";
+}
+
+function checkMultipleRanges(sel) {
+  if(sel.rangeCount > 1) throw "too many selections";
 }
 
 function checkCollapsed(sel) {
@@ -26,7 +31,6 @@ function checkOutside(sel) {
 }
 
 function checkSplitRange(sel) {
-  // change to check all ranges
   const range = sel.getRangeAt(0);
   if(splitRange(range)) {
     expandSelection(sel);
@@ -51,16 +55,18 @@ function validRangeNode(node, ancestor) {
   );
 }
 
-function setRangeStart(range, ancestor) {
+function setRangeStart(range) {
   const node = range.startContainer;
+  const ancestor = range.commonAncestorContainer;
   if(!validRangeNode(node, ancestor)) {
     range.setStartBefore(node);
     setRangeStart(range, ancestor);
   }
 }
 
-function setRangeEnd(range, ancestor) {
+function setRangeEnd(range) {
   const node = range.endContainer;
+  const ancestor = range.commonAncestorContainer;
   if(!validRangeNode(node, ancestor)) {
     range.setEndAfter(node);
     setRangeEnd(range, ancestor);
@@ -68,22 +74,11 @@ function setRangeEnd(range, ancestor) {
 }
 
 function expandSelection(sel) {
-  var ranges = [];
-  for(let i = 0; i < sel.rangeCount; i++) {
-    var range = sel.getRangeAt(i);
-    var ancestor = range.commonAncestorContainer;
-    if (ancestor.nodeType === 1) {
-      setRangeStart(range, ancestor);
-      setRangeEnd(range, ancestor);
-    }
-    ranges.push(range);
-  }
-
+  const range = sel.getRangeAt(0);
+  setRangeStart(range);
+  setRangeEnd(range);
   sel.removeAllRanges();
-  for(let j = 0; j < ranges.length; j++) {
-    sel.addRange(ranges[j]);
-  }
-  return;
+  sel.addRange(range);
 }
 
 export default validateSelection;

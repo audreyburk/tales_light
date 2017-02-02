@@ -16,6 +16,10 @@ class EditorDisplay extends React.Component {
     const selection = document.getSelection();
     validateSelection(selection);
 
+    // wait, how do we know which of two spans
+    // is outside? link or if? do we need
+    // to add a symbol to demark the spans?
+
     const range = selection.getRangeAt(0);
     const span = document.createElement("span");
     span.dataset.editorContent = true;
@@ -25,6 +29,7 @@ class EditorDisplay extends React.Component {
   }
 
   render() {
+
     return(
       <div>
         <h3>Editor</h3>
@@ -38,6 +43,9 @@ class EditorDisplay extends React.Component {
           </p>
           <p data-editor-content>
             <span data-editor-content id="outer"><span data-editor-content id="inner">This</span> is</span> odd.
+          </p>
+          <p data-editor-content>
+            <span id="if">a</span><span id="else"></span>
           </p>
         </div>
       </div>
