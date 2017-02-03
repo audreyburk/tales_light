@@ -1,4 +1,4 @@
-html, body, section, article, div, h1, h2, p, span {
+html, body, section, article, div, p, span {
   margin: 0;
   border: 0;
   padding: 0;
@@ -15,6 +15,14 @@ html, body, section, article, div, h1, h2, p, span {
   padding: 10px;
 }
 
+article.editor-paragraph,
+article.editor-action,
+article.editor-paragraph p {
+  border: 1px solid grey;
+  padding: 10px;
+  margin: 5px;
+}
+
 span:empty {
   display: inline-block;
   height: 1em;
@@ -25,12 +33,19 @@ p:empty {
   height: 1em;
 }
 
-span {
-  border-bottom: 1px solid pink;
-  padding-left:  5px;
-  padding-right: 5px;
+span.link:hover {
+  border-bottom: 1px solid red;
 }
 
-span:hover {
-  border-bottom: 1px solid red;
+span.link {
+  border-bottom: 1px solid pink;
+}
+
+span.link:focus {
+  color: green;
+}
+
+span.blank {
+  padding: 0px;
+  margin: 0px;
 }
