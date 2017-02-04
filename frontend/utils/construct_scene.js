@@ -1,44 +1,52 @@
-function constructObject(node) {
-  if(node.nodeType === 3){
-    return ([{
-      type: "text",
-      text: node.textContent
-    }]);
-  } else {
-    const data = node.dataset;
-    switch(data.type) {
-      case "link":
-        return([{
-          type: "link",
-          linkTo: data.linkTo,
-          content: constructArray(node)
-        }]);
-
-      case "wrapper":
-        return constructArray(node);
-
-      case "paragraph":
-        return [constructArray(node)];
-
-    }
-  }
+function text(node) {
+  return ({
+    type: "text",
+    text: node.textContent
+  });
 }
 
-function constructArray(node) {
+function link(node) {
+  return ({
+    type: "link",
+    linkTo: node.dataset.linkTo,
+    content: content(node)
+  });
+}
+
+function wrapper(node) {
+
+}
+
+function content(node) {
+  debugger
+  let items = [];
   const children = node.childNodes;
-  let objects = [];
   for(let i = 0; i < children.length; i++) {
-    if(children[i].nodeType === 1 || children[i].nodeType === 3) {
-      const object = constructObject(children[i]);
-      objects = objects.concat(object);
+    const child = children[i];
+    if(child.nodeType === 3) {
+      items.push(text(child));
+    } else if (child.nodeType === 1) {
+      switch(child.dataset.type) {
+        case "link":
+          items.push(link(child));
+          break;
+
+        case "wrapper":
+          items = items.concat(content(child));
+          break;
+
+        case "paragraph":
+          items.push(content(child));
+          break;
+      }
     }
   }
-  objects = objects.filter(Boolean);
-  return objects;
+  debugger
+  return items;
 }
 
 function constructScene(node) {
-  const body = constructArray(node);
+  const body = content(node);
   console.log(JSON.stringify(body));
   return JSON.stringify(body);
 }
