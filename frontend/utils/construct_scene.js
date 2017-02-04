@@ -13,12 +13,7 @@ function link(node) {
   });
 }
 
-function wrapper(node) {
-
-}
-
 function content(node) {
-  debugger
   let items = [];
   const children = node.childNodes;
   for(let i = 0; i < children.length; i++) {
@@ -41,7 +36,6 @@ function content(node) {
       }
     }
   }
-  debugger
   return items;
 }
 
