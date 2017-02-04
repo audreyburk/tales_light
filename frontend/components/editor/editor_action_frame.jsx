@@ -16,7 +16,7 @@ class EditorActionFrame extends React.Component {
   applyAction(e, i) {
     e.preventDefault();
     const selection = document.getSelection();
-    validateSelection(selection);
+    validateSelection(selection, "link");
     // Node.normalize() will gett rid of weird text nodes
 
     const range = selection.getRangeAt(0);
@@ -28,8 +28,10 @@ class EditorActionFrame extends React.Component {
 
     link.appendChild(text);
     link.className = "link";
+    link.dataset.type = "link";
     link.dataset.i = i;
     link.dataset.editorContent = true;
+    wrapper.dataset.editorContent = true;
 
     wrapper.appendChild(this.blankSpan());
     wrapper.appendChild(link);
@@ -41,7 +43,6 @@ class EditorActionFrame extends React.Component {
 
   blankSpan() {
     const span = document.createElement("span");
-    // span.setAttribute("contenteditable", false);
     span.className = "blank";
     return span;
   }

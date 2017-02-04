@@ -1,24 +1,21 @@
 function validateSelection(sel, type) {
-  // validation should be a bit different depending on the operation
-  // if adding link, make sure its not in multiple elements
-  // and isnt inside or around another link
-  // a link should be allowed around ifs, though
-  // as long as it doesnt split if/else
-
   checkCollapsed(sel);
   checkMultipleRanges(sel);
   checkOutside(sel);
   checkSplitRange(sel);
 
-  if(type === "link") throw "link!";
-}
-
-function checkMultipleRanges(sel) {
-  if(sel.rangeCount > 1) throw "too many selections";
+  if(type === "link") {
+    checkContainsLink(sel);
+    checkInsideLink(sel);
+  }
 }
 
 function checkCollapsed(sel) {
   if(sel.isCollapsed) throw "nothing selected";
+}
+
+function checkMultipleRanges(sel) {
+  if(sel.rangeCount > 1) throw "too many selections";
 }
 
 function checkOutside(sel) {
@@ -27,6 +24,33 @@ function checkOutside(sel) {
     !sel.focusNode.parentElement.dataset.editorContent
   ) {
     throw "selection is outside editor";
+  }
+}
+
+function checkContainsLink(sel) {
+  if (sel.anchorNode === sel.focusNode) return;
+  let node = sel.anchorNode;
+  while(node.nextSibling !== sel.focusNode) {
+    node = node.nextSibling;
+    if(node.nodeType === 1) {
+      containsLink(node);
+    }
+  }
+}
+
+function containsLink(node) {
+  if(node.dataset.type === "link") throw "selection contains a link!";
+  for(let i = 0; i < node.children.length; i++) {
+    containsLink(node.children[i]);
+  }
+}
+
+function checkInsideLink(sel) {
+  let node = sel.getRangeAt(0).commonAncestorContainer;
+  if(node.nodeType === 3) node = node.parentElement;
+  while(node.parentElement.dataset.editorContent) {
+    if(node.dataset.type === "link") throw "inside a link!";
+    node = node.parentElement;
   }
 }
 

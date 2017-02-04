@@ -12,6 +12,11 @@ class EditorAction extends React.Component {
   render() {
     return(
       <article className="editor-action">
+        <select>
+          <option default>Link</option>
+          <option>If</option>
+        </select>
+        <input type="text"></input>
         <button onClick={(e) => this.handleApply(e)}>Apply Action</button>
       </article>
     );
