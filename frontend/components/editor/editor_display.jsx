@@ -1,7 +1,7 @@
 import React from "react";
 
-import EditorActionFrame    from "./editor_action_frame";
-import EditorParagraphFrame from "./editor_paragraph_frame";
+import EditorActionFrame from "./editor_action_frame";
+import EditorParagraph   from "./editor_paragraph";
 
 import constructScene    from './../../utils/construct_scene';
 
@@ -19,7 +19,7 @@ class EditorDisplay extends React.Component {
     return(
       <div>
         <h2>Editor</h2>
-        <EditorParagraphFrame />
+        <EditorParagraph />
         <EditorActionFrame />
       </div>
     );

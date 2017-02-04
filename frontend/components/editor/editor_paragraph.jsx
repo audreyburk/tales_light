@@ -6,15 +6,36 @@ class EditorParagraph extends React.Component {
   }
 
   handleRemove(e) {
-    this.props.removeParagraph(e, this.props.i);
+    e.preventDefault();
+    // this.node.parentNode.removeChild(this.node);
+    this.props.removeParagraph();
+  }
+
+  handleKeyDown(div) {
+    this.div = div;
+    div.addEventListener(
+      "keydown", this.preventDeletion.bind(this));
+  }
+
+  preventDeletion(e) {
+    if(this.div.children.length === 1 &&
+       this.div.children[0].textContent === "") {
+        if(e.keyCode === 8 || e.keyCode === 46) {
+          e.preventDefault();
+          e.stopPropagation();
+      }
+    }
   }
 
   render() {
     return(
-      <article className="editor-paragraph">
-        <p contentEditable="true" data-editor-content></p>
+      <section className="editor-paragraph">
+        <div contentEditable="true" data-editor-content
+             ref={div => this.handleKeyDown(div)}>
+          <p data-editor-content></p>
+        </div>
         <button onClick={(e) => this.handleRemove(e)}>remove</button>
-      </article>
+      </section>
     );
   }
 }
