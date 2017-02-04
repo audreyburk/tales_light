@@ -2,10 +2,11 @@ function modifySelection(action, i) {
   const selection = document.getSelection();
   const range = selection.getRangeAt(0);
   const text = document.createTextNode(range.toString());
-  let node;
-  if(action.type === "link") {
-    node = createLink(text, i);
-  }
+  const node = createContent(action);
+  node.setAttribute("contenteditable", true);
+  node.appendChild(text);
+  node.dataset.actionI = i;
+  node.dataset.editorContent = true;
   const wrapper = createWrapper(node);
   range.deleteContents();
   range.insertNode(wrapper);
@@ -16,27 +17,28 @@ function createWrapper(node) {
   const wrapper = document.createElement("span");
   wrapper.setAttribute("contenteditable", false);
   wrapper.dataset.editorContent = true;
-  wrapper.appendChild(blankSpan());
+  wrapper.dataset.type = "wrapper";
+  wrapper.appendChild(bufferSpan());
   wrapper.appendChild(node);
-  wrapper.appendChild(blankSpan());
+  wrapper.appendChild(bufferSpan());
   return wrapper;
+
+  function bufferSpan() {
+    const span = document.createElement("span");
+    span.className = "buffer";
+    return span;
+  }
 }
 
-function createLink(text, i) {
-  const link = document.createElement("span");
-  link.setAttribute("contenteditable", true);
-  link.appendChild(text);
-  link.className = "link";
-  link.dataset.type = "link";
-  link.dataset.i = i;
-  link.dataset.editorContent = true;
-  return link;
-}
-
-function blankSpan() {
-  const span = document.createElement("span");
-  span.className = "blank";
-  return span;
+function createContent(action) {
+  const node = document.createElement("span");
+  node.className = action.type;
+  const keys = Object.keys(action);
+  for(let i = 0; i < keys.length; i++) {
+    if(keys[i] === "nodes") continue;
+    node.dataset[keys[i]] = action[keys[i]];
+  }
+  return node;
 }
 
 export default modifySelection;

@@ -52,7 +52,7 @@ span.link:focus {
   background: gray;
 }
 
-span.blank {
+span.buffer {
   padding: 0px;
   margin: 0px;
 }

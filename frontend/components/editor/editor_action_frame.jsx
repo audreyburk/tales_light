@@ -16,7 +16,7 @@ class EditorActionFrame extends React.Component {
     this.removeAction = this.removeAction.bind(this);
   }
 
-  addNode(node, i) {
+  storeNode(node, i) {
     const action = this.state.actions[i];
     action.nodes.push(node);
     const newActions = this.state.actions;
@@ -27,7 +27,7 @@ class EditorActionFrame extends React.Component {
   addAction(e) {
     e.preventDefault();
     const newActions = this.state.actions;
-    newActions.push({type: "link", linkTo: 1, nodes: []});
+    newActions.push({type: "link", nodes: []});
     this.setState({actions: newActions});
   }
 
@@ -35,7 +35,7 @@ class EditorActionFrame extends React.Component {
     validateAction(this.state.actions[i], i);
     validateSelection(this.state.actions[i].type);
     const node = modifySelection(this.state.actions[i], i);
-    this.addNode(node, i);
+    this.storeNode(node, i);
   }
 
   editAction(i, action) {
