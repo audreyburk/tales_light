@@ -15,12 +15,19 @@ html, body, section, article, div, p, span {
   padding: 10px;
 }
 
-article.editor-paragraph,
-article.editor-action,
-article.editor-paragraph p {
+.editor-text-box,
+.editor-action {
   border: 1px solid grey;
   padding: 10px;
   margin: 5px;
+}
+
+.editor-text-box div {
+  margin: 20px;
+}
+
+.editor-text-box p {
+  padding: 5px;
 }
 
 span:empty {
@@ -42,7 +49,7 @@ span.link {
 }
 
 span.link:focus {
-  color: green;
+  background: gray;
 }
 
 span.blank {
