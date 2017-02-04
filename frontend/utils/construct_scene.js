@@ -1,49 +1,44 @@
-function constructChunk(chunk) {
-  if(chunk.nodeType === 3){
-    return ({
+function constructObject(node) {
+  if(node.nodeType === 3){
+    return ([{
       type: "text",
-      text: chunk.textContent
-    });
+      text: node.textContent
+    }]);
   } else {
-    const data = chunk.dataset;
+    const data = node.dataset;
     switch(data.type) {
       case "link":
-        return({
+        return([{
           type: "link",
           linkTo: data.linkTo,
-          text: chunk.textContent
-        });
+          content: constructArray(node)
+        }]);
 
-      case "transaction":
-        return;
+      case "wrapper":
+        return constructArray(node);
 
-      default:
-        throw "unknown data type";
+      case "paragraph":
+        return [constructArray(node)];
+
     }
   }
 }
 
-function constructParagraph(p) {
-  const nodes = p.childNodes;
-  const chunks = [];
-  for(let i = 0; i < nodes.length; i++) {
-    if(nodes[i].nodeType === 1 || nodes[i].nodeType === 3) {
-      const chunk = constructChunk(nodes[i]);
-      chunks.push(chunk);
-    }
-  }
-  return chunks;
-}
-
-function constructScene() {
-  const editor = document.getElementById("text-editor");
-  const children = editor.children;
-  const body = [];
-
+function constructArray(node) {
+  const children = node.childNodes;
+  let objects = [];
   for(let i = 0; i < children.length; i++) {
-    body.push(constructParagraph(children[i]));
+    if(children[i].nodeType === 1 || children[i].nodeType === 3) {
+      const object = constructObject(children[i]);
+      objects = objects.concat(object);
+    }
   }
+  objects = objects.filter(Boolean);
+  return objects;
+}
 
+function constructScene(node) {
+  const body = constructArray(node);
   console.log(JSON.stringify(body));
   return JSON.stringify(body);
 }
