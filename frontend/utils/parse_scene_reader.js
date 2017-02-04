@@ -2,7 +2,7 @@ import React from "react";
 
 const ce = React.createElement;
 
-function parseParagraph(p, handleClick) {
+function parseContent(p, handleClick) {
   const children = p.map(node => {
     switch(node.type){
       case "text":
@@ -10,18 +10,20 @@ function parseParagraph(p, handleClick) {
 
       case "link":
         const props = { onClick: (e) => handleClick(e, node.linkTo) };
-        return ce("b", props, node.text);
+        const contents = parseContent(node.content);
+        return ce("b", props, ...contents);
 
       default:
         throw("Bad scene data");
     }
   });
-  return ce("p", null, ...children);
+  return children;
 }
 
 function parseSceneReader(sceneBody, handleClick) {
   const paragraphs = sceneBody.map(p => {
-    return parseParagraph(p, handleClick);
+    const contents = parseContent(p, handleClick);
+    return ce("p", null, ...contents);
   });
   return ce("div", null, ...paragraphs);
 }

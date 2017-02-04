@@ -17,7 +17,12 @@ let body = [
     {
       type: "link",
       linkTo: 1,
-      text: "photographer"
+      content: [
+        {
+          type: "text",
+          text: "photographer"
+        }
+      ]
     },
     {
       type: "text",
@@ -26,7 +31,12 @@ let body = [
     {
       type: "link",
       linkTo: 1,
-      text: "botanist"
+      content: [
+        {
+          type: "text",
+          text: "boxer"
+        }
+      ]
     },
     {
       type: "text",
@@ -35,7 +45,12 @@ let body = [
     {
       type: "link",
       linkTo: 1,
-      text: "maybe a boxer"
+      content: [
+        {
+          type: "text",
+          text: "maybe a philosopher"
+        }
+      ]
     },
     {
       type: "text",
