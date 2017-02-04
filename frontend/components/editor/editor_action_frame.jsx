@@ -15,14 +15,31 @@ class EditorActionFrame extends React.Component {
 
   applyAction(e, i) {
     e.preventDefault();
+    const action = this.state.actions[i];
     const selection = document.getSelection();
-    validateSelection(selection, "link");
-    // Node.normalize() will gett rid of weird text nodes
-
+    validateSelection(selection, action.type);
     const range = selection.getRangeAt(0);
     const text = document.createTextNode(range.toString());
+    let node;
+    if(action.type === "link") {
+      node = this.createLink(text, i);
+    }
+    const wrapper = this.createWrapper(node);
+    range.deleteContents();
+    range.insertNode(wrapper);
+  }
+
+  createWrapper(node) {
     const wrapper = document.createElement("span");
     wrapper.setAttribute("contenteditable", false);
+    wrapper.dataset.editorContent = true;
+    wrapper.appendChild(this.blankSpan());
+    wrapper.appendChild(node);
+    wrapper.appendChild(this.blankSpan());
+    return wrapper;
+  }
+
+  createLink(text, i) {
     const link = document.createElement("span");
     link.setAttribute("contenteditable", true);
 
@@ -31,14 +48,7 @@ class EditorActionFrame extends React.Component {
     link.dataset.type = "link";
     link.dataset.i = i;
     link.dataset.editorContent = true;
-    wrapper.dataset.editorContent = true;
-
-    wrapper.appendChild(this.blankSpan());
-    wrapper.appendChild(link);
-    wrapper.appendChild(this.blankSpan());
-
-    range.deleteContents();
-    range.insertNode(wrapper);
+    return link;
   }
 
   blankSpan() {
@@ -54,11 +64,14 @@ class EditorActionFrame extends React.Component {
     this.setState(newState);
   }
 
-  editAction(e, i) {
-
+  editAction(e, i, action) {
+    e.preventDefault();
+    const newActions = this.state.actions;
+    newActions[i] = Object.assign(newActions[i], action);
+    this.setState({actions: newActions});
   }
 
-  actions() {
+  renderActions() {
     const children = this.state.actions.map((action, i) => {
       return <EditorAction applyAction={this.applyAction}
                            action={action} key={i} i={i} />;
@@ -70,7 +83,7 @@ class EditorActionFrame extends React.Component {
     return(
       <div>
         <h4>Actions</h4>
-        {this.actions()}
+        {this.renderActions()}
         <button onClick={(e)=>this.addAction(e)}>+ action</button>
       </div>
     );

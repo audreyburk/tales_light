@@ -9,14 +9,6 @@ class EditorParagraphFrame extends React.Component {
     this.removeParagraph = this.removeParagraph.bind(this);
   }
 
-  paragraphs() {
-    const children = this.state.paragraphs.map((p, i) => {
-      return <EditorParagraph removeParagraph={this.removeParagraph}
-                              p={p} key={i} i={i}/>;
-    });
-    return <section>{children}</section>;
-  }
-
   addParagraph(e) {
     e.preventDefault();
     const newState = Object.assign({}, this.state);
@@ -39,12 +31,20 @@ class EditorParagraphFrame extends React.Component {
     this.setState(newState);
   }
 
+  renderParagraphs() {
+    const children = this.state.paragraphs.map((p, i) => {
+      return <EditorParagraph removeParagraph={this.removeParagraph}
+                              p={p} key={i} i={i}/>;
+    });
+    return <section>{children}</section>;
+  }
+
   render() {
     console.log(this.state.paragraphs);
     return(
       <div>
         <h4>Body</h4>
-        {this.paragraphs()}
+        {this.renderParagraphs()}
         <button onClick={(e)=>this.addParagraph(e)}>+ paragraph</button>
       </div>
     );
