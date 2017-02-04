@@ -40,7 +40,6 @@ class EditorParagraphFrame extends React.Component {
   }
 
   render() {
-    console.log(this.state.paragraphs);
     return(
       <div>
         <h4>Body</h4>

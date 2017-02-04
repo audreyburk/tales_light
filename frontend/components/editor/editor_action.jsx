@@ -6,12 +6,19 @@ class EditorAction extends React.Component {
   }
 
   handleApply(e) {
-    this.props.applyAction(e, this.props.i);
+    e.preventDefault();
+    this.props.applyAction(this.props.i);
   }
 
   handleTypeChange(e) {
+    e.preventDefault();
     const action = {type: e.target.value};
-    this.props.editAction(e, this.props.i, action);
+    this.props.editAction(this.props.i, action);
+  }
+
+  handleRemove(e) {
+    e.preventDefault();
+    this.props.removeAction(this.props.i);
   }
 
   render() {
@@ -23,6 +30,7 @@ class EditorAction extends React.Component {
         </select>
         <input type="text"></input>
         <button onClick={(e) => this.handleApply(e)}>Apply Action</button>
+        <button onClick={(e) => this.handleRemove(e)}>Remove</button>
       </article>
     );
   }

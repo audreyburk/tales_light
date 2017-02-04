@@ -1,4 +1,5 @@
-function validateSelection(sel, type) {
+function validateSelection(type) {
+  const sel = document.getSelection();
   checkCollapsed(sel);
   checkMultipleRanges(sel);
   checkOutside(sel);

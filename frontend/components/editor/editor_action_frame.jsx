@@ -1,6 +1,8 @@
 import React from "react";
 
 import validateSelection from "./../../utils/validate_selection";
+import validateAction    from "./../../utils/validate_action";
+import modifySelection   from "./../../utils/modify_selection";
 
 import EditorAction from "./editor_action";
 
@@ -9,71 +11,61 @@ class EditorActionFrame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {actions: []};
-    this.applyAction = this.applyAction.bind(this);
-    this.editAction = this.editAction.bind(this);
+    this.applyAction  = this.applyAction.bind(this);
+    this.editAction   = this.editAction.bind(this);
+    this.removeAction = this.removeAction.bind(this);
   }
 
-  applyAction(e, i) {
-    e.preventDefault();
+  addNode(node, i) {
     const action = this.state.actions[i];
-    const selection = document.getSelection();
-    validateSelection(selection, action.type);
-    const range = selection.getRangeAt(0);
-    const text = document.createTextNode(range.toString());
-    let node;
-    if(action.type === "link") {
-      node = this.createLink(text, i);
-    }
-    const wrapper = this.createWrapper(node);
-    range.deleteContents();
-    range.insertNode(wrapper);
-  }
-
-  createWrapper(node) {
-    const wrapper = document.createElement("span");
-    wrapper.setAttribute("contenteditable", false);
-    wrapper.dataset.editorContent = true;
-    wrapper.appendChild(this.blankSpan());
-    wrapper.appendChild(node);
-    wrapper.appendChild(this.blankSpan());
-    return wrapper;
-  }
-
-  createLink(text, i) {
-    const link = document.createElement("span");
-    link.setAttribute("contenteditable", true);
-
-    link.appendChild(text);
-    link.className = "link";
-    link.dataset.type = "link";
-    link.dataset.i = i;
-    link.dataset.editorContent = true;
-    return link;
-  }
-
-  blankSpan() {
-    const span = document.createElement("span");
-    span.className = "blank";
-    return span;
-  }
-
-  addAction(e) {
-    e.preventDefault();
-    const newState = Object.assign({}, this.state);
-    newState.actions.push({type:"link"});
-    this.setState(newState);
-  }
-
-  editAction(e, i, action) {
-    e.preventDefault();
+    action.nodes.push(node);
     const newActions = this.state.actions;
     newActions[i] = Object.assign(newActions[i], action);
     this.setState({actions: newActions});
   }
 
+  addAction(e) {
+    e.preventDefault();
+    const newActions = this.state.actions;
+    newActions.push({type: "link", linkTo: 1, nodes: []});
+    this.setState({actions: newActions});
+  }
+
+  applyAction(i) {
+    validateAction(this.state.actions[i], i);
+    validateSelection(this.state.actions[i].type);
+    const node = modifySelection(this.state.actions[i], i);
+    this.addNode(node, i);
+  }
+
+  editAction(i, action) {
+    const newActions = this.state.actions;
+    newActions[i] = Object.assign(newActions[i], action);
+    this.setState({actions: newActions});
+  }
+
+  removeAction(i) {
+    let newActions = this.state.actions;
+    newActions[i].nodes.forEach(node => {
+      // find a more reliable way to get correct content
+      const insides = node.children[1].childNodes;
+      const parent = node.parentElement;
+      while(insides.length > 0) {
+        parent.insertBefore(insides[0], node);
+      }
+      parent.removeChild(node);
+      parent.normalize();
+    });
+    delete newActions[i];
+    newActions = newActions.filter(Boolean);
+    this.setState({actions: newActions});
+  }
+
   renderActions() {
     const children = this.state.actions.map((action, i) => {
-      return <EditorAction applyAction={this.applyAction}
+      return <EditorAction applyAction  = {this.applyAction}
+                           editAction   = {this.editAction}
+                           removeAction = {this.removeAction}
                            action={action} key={i} i={i} />;
     });
     return <section>{children}</section>;
