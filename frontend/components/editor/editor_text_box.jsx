@@ -7,7 +7,7 @@ class EditorTextBox extends React.Component {
     super(props);
   }
 
-  preventDeletion(e) {
+  handleKeyDown(e) {
     // also, prevent enter while inside span? keyCode 13
     if(this.div.children.length === 1 &&
        this.div.children[0].textContent === "") {
@@ -18,22 +18,24 @@ class EditorTextBox extends React.Component {
     }
   }
 
-  handleKeyDown(div) {
-    this.div = div;
-    div.addEventListener(
-      "keydown", this.preventDeletion.bind(this));
+  addListener(div) {
+    if(div) {
+      this.div = div;
+      div.addEventListener(
+        "keydown", this.handleKeyDown.bind(this));
+      }
     }
 
-    handleConstruct(e) {
-      e.preventDefault();
-      constructScene(this.div);
-    }
+  handleConstruct(e) {
+    e.preventDefault();
+    constructScene(this.div);
+  }
 
   render() {
     return(
       <section className="editor-text-box">
         <div contentEditable="true" data-editor-content
-             ref={div => this.handleKeyDown(div)}>
+             ref={div => this.addListener(div)}>
           <p data-editor-content data-type="paragraph"></p>
         </div>
         <button onClick={(e) => this.handleConstruct(e)}>Construct</button>
