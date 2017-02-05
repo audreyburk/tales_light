@@ -11,42 +11,49 @@ class EditorActionFrame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {actions: []};
+    this.count = 0;
+
     this.applyAction  = this.applyAction.bind(this);
     this.editAction   = this.editAction.bind(this);
     this.removeAction = this.removeAction.bind(this);
   }
 
-  storeNode(node, i) {
-    const action = this.state.actions[i];
+  storeNode(idx, node) {
+    const action = this.state.actions[idx];
     action.nodes.push(node);
     const newActions = this.state.actions;
-    newActions[i] = Object.assign(newActions[i], action);
+    newActions[idx] = Object.assign(newActions[idx], action);
     this.setState({actions: newActions});
   }
 
   addAction(e) {
     e.preventDefault();
     const newActions = this.state.actions;
-    newActions.push({type: "link", nodes: []});
+    newActions.push({type: "link", idx: this.count, nodes: []});
+    this.count++;
     this.setState({actions: newActions});
   }
 
-  applyAction(i) {
-    validateAction(this.state.actions[i], i);
-    validateSelection(this.state.actions[i].type);
-    const node = modifySelection(this.state.actions[i], i);
-    this.storeNode(node, i);
+  applyAction(idx) {
+    validateAction(this.state.actions[idx]);
+    validateSelection(this.state.actions[idx].type);
+    const node = modifySelection(this.state.actions[idx]);
+    this.storeNode(idx, node);
   }
 
-  editAction(i, action) {
+  editAction(idx, action) {
     const newActions = this.state.actions;
-    newActions[i] = Object.assign(newActions[i], action);
+    newActions[idx] = Object.assign(newActions[idx], action);
     this.setState({actions: newActions});
   }
 
-  removeAction(i) {
+  // I GOT IT ALL WRONG
+  // NO NEED TO CHANGE INDICES
+  // JUST KEEP INCREMENTING
+
+  removeAction(idx) {
     let newActions = this.state.actions;
-    newActions[i].nodes.forEach(node => {
+    newActions[idx].nodes.forEach(node => {
       // find a more reliable way to get correct content
       const insides = node.children[1].childNodes;
       const parent = node.parentElement;
@@ -56,17 +63,17 @@ class EditorActionFrame extends React.Component {
       parent.removeChild(node);
       parent.normalize();
     });
-    delete newActions[i];
+    delete newActions[idx];
     newActions = newActions.filter(Boolean);
     this.setState({actions: newActions});
   }
 
   renderActions() {
-    const children = this.state.actions.map((action, i) => {
+    const children = this.state.actions.map(action => {
       return <EditorAction applyAction  = {this.applyAction}
                            editAction   = {this.editAction}
                            removeAction = {this.removeAction}
-                           action={action} key={i} i={i} />;
+                           action={action} key={action.idx} />;
     });
     return <section>{children}</section>;
   }

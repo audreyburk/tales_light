@@ -36,7 +36,7 @@ class EditorTextBox extends React.Component {
       <section className="editor-text-box">
         <div contentEditable="true" data-editor-content
              ref={div => this.addListener(div)}>
-          <p data-editor-content data-type="paragraph"></p>
+          <p data-editor-content="true" data-type="paragraph"></p>
         </div>
         <button onClick={(e) => this.handleConstruct(e)}>Construct</button>
       </section>

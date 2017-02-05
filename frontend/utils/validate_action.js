@@ -1,4 +1,4 @@
-function validateAction(action, i) {
+function validateAction(action) {
   switch(action.type) {
     case "link":
       validateLink(action);
@@ -18,7 +18,7 @@ function validateLink(action) {
 }
 
 function validateIf(action) {
-  
+
 }
 
 export default validateAction;

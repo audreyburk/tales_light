@@ -1,11 +1,10 @@
-function modifySelection(action, i) {
+function modifySelection(action) {
   const selection = document.getSelection();
   const range = selection.getRangeAt(0);
   const text = document.createTextNode(range.toString());
   const node = createContent(action);
   node.setAttribute("contenteditable", true);
   node.appendChild(text);
-  node.dataset.actionI = i;
   node.dataset.editorContent = true;
   const wrapper = createWrapper(node);
   range.deleteContents();

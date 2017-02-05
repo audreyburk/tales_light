@@ -6,31 +6,32 @@ import EditorActionIf   from "./editor_action_if";
 class EditorAction extends React.Component {
   constructor(props) {
     super(props);
+    this.idx = this.props.action.idx;
   }
 
   handleApply(e) {
     e.preventDefault();
-    this.props.applyAction(this.props.i);
+    this.props.applyAction(this.idx);
   }
 
   handleTypeChange(e) {
     e.preventDefault();
     const action = {type: e.target.value};
-    this.props.editAction(this.props.i, action);
+    this.props.editAction(this.idx, action);
   }
 
   handleRemove(e) {
     e.preventDefault();
-    this.props.removeAction(this.props.i);
+    this.props.removeAction(this.idx);
   }
 
   renderPanel() {
     switch(this.props.action.type) {
       case "link":
-        return <EditorActionLink i={this.props.i}
+        return <EditorActionLink idx={this.idx}
                 editAction={this.props.editAction}/>;
       case "if":
-        return <EditorActionIf i={this.props.i}
+        return <EditorActionIf idx={this.idx}
                 editAction={this.props.editAction}/>;
     }
   }

@@ -8,7 +8,7 @@ class EditorActionIf extends React.Component {
   handleChange(e) {
     e.preventDefault();
     const action = {linkTo: e.target.value};
-    this.props.editAction(this.props.i, action);
+    this.props.editAction(this.props.idx, action);
   }
 
   render() {

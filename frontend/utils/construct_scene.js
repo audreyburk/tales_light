@@ -5,6 +5,8 @@ function text(node) {
   });
 }
 
+// construct link, if, else, etc can probably all
+// just take all of the dataset properties, minus a couple
 function link(node) {
   return ({
     type: "link",
