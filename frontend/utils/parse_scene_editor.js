@@ -1,58 +1,44 @@
-import React from "react";
-
-import {
-  createWrapper, // takes node, ie link span
-                 // includes bufferSpan
-  createContent  // takes in an object with all the to-be dataset values
-
-} from "";
-
-// OH SHIT WE NEED TO MAKE ALL NEW ACTIONS ! ! !
-
-const ce = React.createElement;
+import createContent from "./create_content";
 
 function parseContent(content, actions) {
   const children = content.map(node => {
-    switch(node.type){
-      case "text":
-        return node.text;
-
-      case "link":
-        // remember to add refs to actions
-        // again, probably use ALL nodes properties minus a few
-        // for link, if, else, etc, no need to differentiate
-        const props = {linkTo: node.linkTo};
-        const contents = parseContent(node.content);
-        return ce("b", props, ...contents);
-
-      default:
-        throw("Bad scene data");
+    if(node.type === "text") {
+      return document.createTextNode(node.text);
+    } else {
+      const parsed = parseContent(node.content, actions);
+      const contents = parsed.contents;
+      actions = Object.assign(actions, parsed.actions);
+      const fragment = document.createDocumentFragment();
+      contents.forEach(el => fragment.appendChild(el));
+      let newNode = createContent(node, fragment);
+      if(!actions[node.idx]) {
+        actions[node.idx] = newNode;
+      }
+      newNode.appendChild(fragment);
+      return newNode;
     }
   });
-  return children;
+  return ({
+    contents: children,
+    actions: actions
+  });
 }
 
-
-
-
 function parseSceneEditor(body) {
-  const actions = [];
-  const props = {
-    "data-editor-content": true,
-    "data-type": "paragraph"
-  };
+  let actions = {};
   const paragraphs = body.map(p => {
-    const contents = parseContent(p, actions);
-    return ce("p", props, ...contents);
+    const paragraph = document.createElement("p");
+    paragraph.dataset.editorContent = true;
+    paragraph.dataset.type = "paragraph";
+    const parsed = parseContent(p, actions);
+    const contents = parsed.contents;
+    actions = Object.assign(actions, parsed.actions);
+    const fragment = document.createDocumentFragment();
+    contents.forEach(el => fragment.appendChild(el));
+    paragraph.appendChild(fragment);
+    return paragraph;
   });
   return [paragraphs, actions];
 }
-
-
-
-
-
-
-
 
 export default parseSceneEditor;

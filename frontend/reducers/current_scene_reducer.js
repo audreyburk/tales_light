@@ -17,6 +17,7 @@ let body = [
     {
       type: "link",
       linkTo: 1,
+      idx: 1,
       content: [
         {
           type: "text",
@@ -30,7 +31,8 @@ let body = [
     },
     {
       type: "link",
-      linkTo: 1,
+      linkTo: 2,
+      idx: 2,
       content: [
         {
           type: "text",
@@ -44,7 +46,8 @@ let body = [
     },
     {
       type: "link",
-      linkTo: 1,
+      linkTo: 3,
+      idx: 3,
       content: [
         {
           type: "text",
