@@ -7,17 +7,30 @@ class SceneDisplay extends React.Component {
     super(props);
   }
 
-  handleClick(e, id) {
+  handleLink(e, id) {
     e.preventDefault();
     const scene = this.props.sceneById(id);
     this.props.focusScene(scene);
   }
 
+  handleEdit(e) {
+    e.preventDefault();
+    this.props.viewEditor();
+  }
+
   render() {
-    return parseSceneReader(
-      this.props.currentScene.body,
-      this.handleClick.bind(this)
+    return(
+      <section>
+        {parseSceneReader(
+          this.props.currentScene.body,
+          this.handleLink.bind(this)
+        )}
+        <button onClick={e => this.handleEdit(e)}>Edit Scene</button>
+      </section>
+
     );
+
+
   }
 }
 
