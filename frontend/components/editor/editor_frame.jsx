@@ -9,7 +9,9 @@ class EditorFrame extends React.Component {
 
   render() {
     return(
-      <EditorDisplay currentScene={this.props.currentScene} />
+      <div>
+        <EditorDisplay currentScene={this.props.currentScene} />
+      </div>
     );
   }
 }

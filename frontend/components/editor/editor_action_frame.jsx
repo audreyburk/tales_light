@@ -47,10 +47,6 @@ class EditorActionFrame extends React.Component {
     this.setState({actions: newActions});
   }
 
-  // I GOT IT ALL WRONG
-  // NO NEED TO CHANGE INDICES
-  // JUST KEEP INCREMENTING
-
   removeAction(idx) {
     let newActions = this.state.actions;
     newActions[idx].nodes.forEach(node => {

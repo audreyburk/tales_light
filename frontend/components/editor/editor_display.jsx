@@ -13,11 +13,11 @@ class EditorDisplay extends React.Component {
 
   render() {
     return(
-      <div>
+      <section>
         <h2>Editor</h2>
         <EditorTextBox />
         <EditorActionFrame />
-      </div>
+      </section>
     );
   }
 }
