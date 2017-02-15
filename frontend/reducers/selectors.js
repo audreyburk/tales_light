@@ -12,3 +12,7 @@ export const sceneById = (state, id) => {
 export const currentScene = state => {
   return state.currentScene;
 };
+
+export const currentView = state => {
+  return state.currentView;
+};
