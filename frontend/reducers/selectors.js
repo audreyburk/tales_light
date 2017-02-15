@@ -14,5 +14,5 @@ export const currentScene = state => {
 };
 
 export const currentView = state => {
-  return state.currentView;
+  return state.currentView.view;
 };
