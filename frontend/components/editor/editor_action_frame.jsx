@@ -49,6 +49,7 @@ class EditorActionFrame extends React.Component {
 
   removeAction(idx) {
     let newActions = this.state.actions;
+    // if(newActions[idx].nodes) { ...
     newActions[idx].nodes.forEach(node => {
       // find a more reliable way to get correct content
       const insides = node.children[1].childNodes;

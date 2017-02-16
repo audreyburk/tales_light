@@ -11,8 +11,7 @@ let body = [
   [
     {
       type: "text",
-      text: "I sit up, yawn, rub the sleep from my eyes. Everything looks as it\
-      always has, but for a moment, I cannot remember who I am. Am I a "
+      text: "I sit up, yawn, rub the sleep from my eyes. Everything looks as it always has, but for a moment, I cannot remember who I am. Am I a "
     },
     {
       type: "link",
