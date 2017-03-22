@@ -8,12 +8,18 @@ function parseContent(content, actions) {
     if(node.type === "text") {
       return node.text;
     } else {
+      debugger
       const parsed = parseContent(node.content, actions);
       const contents = parsed.contents;
-      actions = Object.assign(actions, parsed.actions);
+      actions = Object.assign(actions, parsed.actions); // array
       let newNode = createContentReact(node, ...contents);
-      if(!actions[node.idx]) {
-        actions[node.idx] = newNode; // gotta be a ref, now?
+      if(!actions[node.idx]) { // nah, just always do it
+        //all but idx & content
+        actions[node.idx] = {
+          type: node.type
+        };
+        actions[node.idx].nodes = actions[node.idx].nodes || [];
+        actions[node.idx].nodes.push(newNode); // gotta be a ref, now?
       }
       return newNode;
     }

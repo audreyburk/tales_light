@@ -12,7 +12,15 @@ class EditorActionFrame extends React.Component {
     super(props);
     this.state = {actions: []};
     this.count = 0;
-
+    debugger
+    if(this.props.actions) {
+      const keys = Object.keys(this.props.actions);
+      for(let i = 0; i < keys.length; i++) {
+        this.state.actions[keys[i]] = this.props.actions[keys[i]];
+      }
+      this.count = Math.max.apply(null, keys) + 1;
+    }
+    debugger
     this.applyAction  = this.applyAction.bind(this);
     this.editAction   = this.editAction.bind(this);
     this.removeAction = this.removeAction.bind(this);

@@ -5,9 +5,6 @@ import Root from "./components/root";
 
 
 // testing only ---
-import parseSceneEditor from "./utils/parse_scene_editor";
-window.parseSceneEditor = parseSceneEditor;
-
 import store from "./store/store";
 window.store = store;
 
