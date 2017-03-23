@@ -10,3 +10,8 @@ html, body, section, article, div, p, span {
 
   background: transparent;
 }
+
+.link {
+  color: green;
+  cursor: pointer;
+}

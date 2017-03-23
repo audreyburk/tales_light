@@ -3,7 +3,7 @@ import { FOCUS_SCENE } from "./../actions/scene_actions";
 // testing only
 const initialState = {
   id: 1,
-  body: "Am I a [[boxer|Boxer]]? Perhaps a [[musician\Musician]]?"
+  body: "Am I a [[boxer|Boxer]]? Perhaps a [[musician|Musician]]?"
 };
 // ---
 

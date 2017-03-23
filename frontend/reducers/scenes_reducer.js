@@ -6,9 +6,13 @@ import {
 
 // testing only
 const initialState = {
-  "1": {
-    id: 1,
+  "Boxer": {
+    title: "Boxer",
     body: "Hallo there."
+  },
+  "Musician": {
+    title: "Musician",
+    body: "Heyos. Check out the [[Boxer]]."
   }
 };
 // ---
