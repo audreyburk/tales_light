@@ -1,6 +1,6 @@
 import React from "react";
 
-class SceneDisplay extends React.Component {
+class Reader extends React.Component {
   constructor(props) {
     super(props);
     this.handleLink = this.handleLink.bind(this);
@@ -49,4 +49,4 @@ class SceneDisplay extends React.Component {
   }
 }
 
-export default SceneDisplay;
+export default Reader;

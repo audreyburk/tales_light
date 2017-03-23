@@ -4,7 +4,7 @@ import { currentScene, sceneById } from "./../../reducers/selectors";
 import { focusScene } from './../../actions/scene_actions';
 import { viewEditor } from './../../actions/view_actions';
 
-import ReaderDisplay from "./reader_display";
+import Reader from "./reader";
 
 const mapStateToProps = state => ({
   currentScene: currentScene(state),
@@ -19,4 +19,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReaderDisplay);
+)(Reader);

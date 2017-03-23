@@ -1,7 +1,7 @@
 import React from "react";
 
-import ReaderDisplayContainer from "./reader/reader_display_container";
-import EditorFrameContainer from "./editor/editor_frame_container";
+import ReaderContainer from "./reader/reader_container";
+import EditorContainer from "./editor/editor_container";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class App extends React.Component {
 
   renderFrame() {
     if(this.props.currentView === "reader") {
-      return <ReaderDisplayContainer />;
+      return <ReaderContainer />;
     } else {
-      return <EditorFrameContainer />;
+      return <EditorContainer />;
     }
   }
 
