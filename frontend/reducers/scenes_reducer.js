@@ -8,14 +8,7 @@ import {
 const initialState = {
   "1": {
     id: 1,
-    body: [
-      [
-        {
-          type: "text",
-          text: "Hallo."
-        }
-      ]
-    ]
+    body: "Hallo there."
   }
 };
 // ---
