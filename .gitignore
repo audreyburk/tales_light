@@ -1,5 +1,5 @@
-/bundle.js
-/bundle.js.map
+/backend/public/bundle.js
+/backend/public/bundle.js.map
 /log/**
 /tmp/**
 /node_modules/

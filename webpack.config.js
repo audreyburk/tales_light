@@ -4,7 +4,7 @@ module.exports = {
   context: __dirname,
   entry: "./frontend/tales.jsx",
   output: {
-    path: path.join(__dirname),
+    path: path.join(__dirname, "backend", "public"),
     filename: "bundle.js",
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
