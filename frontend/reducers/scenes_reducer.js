@@ -2,24 +2,15 @@ import { merge } from "lodash";
 
 import {
   RECEIVE_SCENES,
-  RECEIVE_SCENE } from "./../actions/scene_actions";
+  RECEIVE_SCENE,
+  REQUEST_SCENES } from "./../actions/scene_actions";
 
-// testing only
-const initialState = {
-  "Boxer": {
-    title: "Boxer",
-    body: "Hallo there."
-  },
-  "Musician": {
-    title: "Musician",
-    body: "Heyos. Check out the [[Boxer]]."
-  }
-};
-// ---
-
-const scenesReducer = (state = initialState, action) => {
+const scenesReducer = (state = {}, action) => {
   let newState = Object.assign({}, state);
   switch(action.type) {
+    case REQUEST_SCENES:
+      return newState;
+
     case RECEIVE_SCENE:
       newState = merge(newState, {[action.scene.id]: action.scene});
       return newState;
@@ -27,7 +18,7 @@ const scenesReducer = (state = initialState, action) => {
     case RECEIVE_SCENES:
       newState = {};
       action.scenes.forEach(scene => {
-        newState[scene.id] = scene;
+        newState[scene.title] = scene;
       });
       return newState;
 

@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   context: __dirname,
-  entry: "./frontend/tales.jsx",
+  entry: ["babel-polyfill", "./frontend/tales.jsx"],
   output: {
     path: path.join(__dirname, "backend", "public"),
     filename: "bundle.js",

@@ -8,9 +8,13 @@ import Root from "./components/root";
 import store from "./store/store";
 window.store = store;
 
-import { receiveScene, receiveScenes } from "./actions/scene_actions";
+import {
+  receiveScene,
+  receiveScenes,
+  fetchScenes } from "./actions/scene_actions";
 window.receiveScene  = receiveScene;
 window.receiveScenes = receiveScenes;
+window.fetchScenes   = fetchScenes;
 
 import { allScenes } from "./reducers/selectors";
 window.allScenes = () => allScenes(store.getState());

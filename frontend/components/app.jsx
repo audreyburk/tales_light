@@ -8,6 +8,10 @@ class App extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchScenes();
+  }
+
   renderFrame() {
     if(this.props.currentView === "reader") {
       return <ReaderContainer />;
