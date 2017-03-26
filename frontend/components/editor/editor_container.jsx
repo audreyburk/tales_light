@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { currentScene } from "./../../reducers/selectors";
-import { focusScene }   from './../../actions/scene_actions';
+import { focusScene, updateScene }   from './../../actions/scene_actions';
 
 import Editor from "./editor";
 
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  focusScene: (scene) => dispatch(focusScene(scene)),
+  focusScene: scene => dispatch(focusScene(scene)),
+  updateScene: scene => dispatch(updateScene(scene))
 });
 
 export default connect(

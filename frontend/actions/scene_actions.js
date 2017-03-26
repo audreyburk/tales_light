@@ -4,6 +4,8 @@ export const RECEIVE_SCENES = "RECEIVE_SCENES";
 export const RECEIVE_SCENE  = "RECEIVE_SCENE";
 export const FOCUS_SCENE    = "FOCUS_SCENE";
 export const REQUEST_SCENES = "REQUEST_SCENES";
+export const REQUEST_SCENE  = "REQUEST_SCENE";
+// export const UPDATE_SCENE   = "UPDATE_SCENE";
 
 export const receiveScenes = scenes => ({
   type: RECEIVE_SCENES, scenes
@@ -21,6 +23,10 @@ export const requestScenes = () => ({
   type: REQUEST_SCENES
 });
 
+export const requestScene = () => ({
+  type: REQUEST_SCENE
+});
+
 export const fetchScenes = () => {
   return (dispatch) => {
     dispatch(requestScenes());
@@ -29,8 +35,26 @@ export const fetchScenes = () => {
       .then(scenes => {
         dispatch(receiveScenes(scenes));
       });
+      // add network error handling
+  };
+};
 
-      // In a real world app, you also want to
-      // catch any error in the network call.
+export const updateScene = scene => {
+  return (dispatch) => {
+    dispatch(requestScene()); // probably change to a "saving scene" action
+    const url = `/scenes/${scene.title}`;
+    const request = new Request(url, {
+    	method: "PUT",
+      body: JSON.stringify({ scene: scene }),
+    	headers: new Headers({
+        "Accept": "application/json",
+    		"Content-Type": "application/json"
+    	})
+    });
+    return fetch(request)
+      .then(response => response.json())
+      .then(newScene => {
+        dispatch(receiveScene(newScene));
+      });
   };
 };

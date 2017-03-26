@@ -11,10 +11,12 @@ window.store = store;
 import {
   receiveScene,
   receiveScenes,
-  fetchScenes } from "./actions/scene_actions";
+  fetchScenes,
+  updateScene } from "./actions/scene_actions";
 window.receiveScene  = receiveScene;
 window.receiveScenes = receiveScenes;
 window.fetchScenes   = fetchScenes;
+window.updateScene   = updateScene;
 
 import { allScenes } from "./reducers/selectors";
 window.allScenes = () => allScenes(store.getState());

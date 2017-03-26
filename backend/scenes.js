@@ -29,4 +29,16 @@ Scenes.findByTitle = function(title, cb) {
   });
 };
 
+Scenes.update = function(title, scene, cb) {
+  MongoClient.connect(url, (errA, db) => {
+    assert.equal(errA, null);
+    const collection = db.collection("scenes");
+    collection.updateOne({title: title}, { $set: { body: scene.body } }, (errB, newScene) => {
+      assert.equal(errB, null);
+      db.close();
+      cb(newScene);
+    });
+  });
+};
+
 module.exports = Scenes;

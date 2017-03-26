@@ -4,11 +4,14 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {body: this.props.currentScene.body};
+    // add title
+    // remove scene when title changes
   }
 
   handleSave(e) {
     e.preventDefault();
-    // upload
+    const newScene = Object.assign(this.props.currentScene, this.state);
+    this.props.updateScene(newScene);
   }
 
   updateBody(e) {
