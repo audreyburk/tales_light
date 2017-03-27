@@ -10,19 +10,31 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
 app.get("/scenes", (req, res) => {
-  Scenes.all( scenes => {
+  Scenes.all(scenes => {
     res.json(scenes);
   });
 });
 
-app.get("/scenes/:title", (req, res) => {
-  Scenes.findByTitle(req.params.title, scene => {
+app.post("/scenes", (req, res) => {
+  Scenes.create(req.body.scene, scene => {
     res.json(scene);
   });
 });
 
-app.put("/scenes/:title", (req, res) => {
-  Scenes.update(req.params.title, req.body.scene, scene => {
+app.get("/scenes/:id", (req, res) => {
+  Scenes.findById(req.params.id, scene => {
+    res.json(scene);
+  });
+});
+
+app.delete("/scenes/:id", (req, res) => {
+  Scenes.delete(req.params.id, scene => {
+    res.json(scene);
+  });
+});
+
+app.put("/scenes/:id", (req, res) => {
+  Scenes.update(req.params.id, req.body.scene, scene => {
     res.json(scene);
   });
 });

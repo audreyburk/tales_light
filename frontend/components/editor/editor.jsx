@@ -1,29 +1,31 @@
 import React from "react";
+import EditorScene from "./editor_scene";
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {body: this.props.currentScene.body};
-    // add title
-    // remove scene when title changes
   }
 
-  handleSave(e) {
+  blankScene(e) {
     e.preventDefault();
-    const newScene = Object.assign(this.props.currentScene, this.state);
-    this.props.updateScene(newScene);
+    this.props.receiveScene({title: "untitled"});
   }
 
-  updateBody(e) {
-    this.setState({body: e.currentTarget.value});
+  renderScenes() {
+    return this.props.allScenes.map(scene => {
+      return(<EditorScene scene={scene} key={scene._id}
+                updateScene={this.props.updateScene}
+                deleteScene={this.props.deleteScene}
+                createScene={this.props.createScene} />);
+    });
   }
 
   render() {
     return(
       <section>
         <h2>Editor</h2>
-        <textarea onChange={e => this.updateBody(e)} value={this.state.body}/>
-        <button onClick={e => this.handleSave(e)}>Save</button>
+        {this.renderScenes()}
+        <button onClick={e => this.blankScene(e)}>New Scene</button>
       </section>
     );
   }

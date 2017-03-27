@@ -17,27 +17,66 @@ Scenes.all = function (cb) {
   });
 };
 
-Scenes.findByTitle = function(title, cb) {
+Scenes.find = function(id, cb) {
   MongoClient.connect(url, (errA, db) => {
     assert.equal(errA, null);
     const collection = db.collection("scenes");
-    collection.findOne({title: title}, (errB, scene) => {
-      assert.equal(errB, null);
-      db.close();
-      cb(scene);
-    });
+    collection.findOne(
+      {_id: ObjectId(id)},
+      (errB, scene) => {
+        assert.equal(errB, null);
+        db.close();
+        cb(scene);
+      }
+    );
   });
 };
 
-Scenes.update = function(title, scene, cb) {
+Scenes.create = function(scene, cb) {
   MongoClient.connect(url, (errA, db) => {
     assert.equal(errA, null);
     const collection = db.collection("scenes");
-    collection.updateOne({title: title}, { $set: { body: scene.body } }, (errB, newScene) => {
-      assert.equal(errB, null);
-      db.close();
-      cb(newScene);
-    });
+    collection.insertOne(
+      scene,
+      (errB, newScene) => {
+        assert.equal(errB, null);
+        db.close();
+        console.log(newScene.ops);
+        cb(newScene.ops);
+      }
+    );
+  });
+};
+
+Scenes.delete = function(id, cb) {
+  MongoClient.connect(url, (errA, db) => {
+    assert.equal(errA, null);
+    const collection = db.collection("scenes");
+    collection.deleteOne(
+      { _id: ObjectId(id)},
+      (errB, scene) => {
+        assert.equal(errB, null);
+        db.close();
+        cb(scene);
+      }
+    );
+  });
+};
+
+Scenes.update = function(id, scene, cb) {
+  MongoClient.connect(url, (errA, db) => {
+    assert.equal(errA, null);
+    const collection = db.collection("scenes");
+    collection.findOneAndUpdate(
+      {_id: ObjectId(id)},
+      {$set: {body: scene.body} },
+      {returnNewDocument: true},
+      (errB, newScene) => {
+        assert.equal(errB, null);
+        db.close();
+        cb(newScene.value);
+      }
+    );
   });
 };
 

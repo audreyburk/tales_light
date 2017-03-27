@@ -4,11 +4,19 @@ import {
   RECEIVE_SCENES,
   RECEIVE_SCENE,
   REQUEST_SCENES,
-  REQUEST_SCENE } from "./../actions/scene_actions";
+  REQUEST_SCENE,
+  REMOVE_SCENE } from "./../actions/scene_actions";
 
 const scenesReducer = (state = {}, action) => {
   let newState = Object.assign({}, state);
   switch(action.type) {
+    case REMOVE_SCENE:
+      console.log(action);
+      console.log(newState);
+      delete newState[action.scene.title];
+      console.log(newState);
+      return newState;
+
     case REQUEST_SCENES, REQUEST_SCENE:
       return newState;
 
