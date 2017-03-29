@@ -22,7 +22,7 @@ app.post("/scenes", (req, res) => {
 });
 
 app.get("/scenes/:id", (req, res) => {
-  Scenes.findById(req.params.id, scene => {
+  Scenes.find(req.params.id, scene => {
     res.json(scene);
   });
 });
