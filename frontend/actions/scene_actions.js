@@ -73,6 +73,7 @@ export const createScene = scene => {
     return fetch(request)
       .then(response => response.json())
       .then(ops => {
+        dispatch(removeScene(scene));
         dispatch(receiveScene(ops[0]));
       });
   };

@@ -70,7 +70,7 @@ Scenes.update = function(id, scene, cb) {
     collection.findOneAndUpdate(
       {_id: ObjectId(id)},
       {$set: {body: scene.body, title: scene.title} },
-      {returnNewDocument: true},
+      {returnOriginal: false},
       (errB, newScene) => {
         assert.equal(errB, null);
         db.close();

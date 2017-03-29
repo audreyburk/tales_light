@@ -6,9 +6,9 @@ class Reader extends React.Component {
     this.handleLink = this.handleLink.bind(this);
   }
 
-  handleLink(e, id) {
+  handleLink(e, title) {
     e.preventDefault();
-    const scene = this.props.sceneById(id);
+    const scene = this.props.sceneByTitle(title);
     this.props.focusScene(scene);
   }
 

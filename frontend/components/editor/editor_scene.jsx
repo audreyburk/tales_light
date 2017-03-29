@@ -3,21 +3,17 @@ import React from "react";
 class EditorScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      body:  this.props.scene.body,
-      title: this.props.scene.title
-    };
-    // add title
-    // remove scene when title changes
+    this.state = this.props.scene;
   }
 
   handleSave(e) {
     e.preventDefault();
     const newScene = Object.assign({}, this.props.scene, this.state);
-    if(this.props.scene._id) {
-      this.props.updateScene(newScene);
-    } else {
+    if(this.state.new) {
+      delete newScene.new;
       this.props.createScene(newScene);
+    } else {
+      this.props.updateScene(newScene);
     }
   }
 
@@ -27,6 +23,7 @@ class EditorScene extends React.Component {
   }
 
   change(property, e) {
+    e.preventDefault();
     this.setState({[property]: e.currentTarget.value});
   }
 

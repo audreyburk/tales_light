@@ -8,7 +8,12 @@ class Editor extends React.Component {
 
   blankScene(e) {
     e.preventDefault();
-    this.props.receiveScene({title: "untitled"});
+    this.props.receiveScene({
+      title:  "untitled",
+      body:   "...",
+      new:    true
+    });
+    this.blanks++;
   }
 
   renderScenes() {

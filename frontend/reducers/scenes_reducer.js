@@ -11,23 +11,20 @@ const scenesReducer = (state = {}, action) => {
   let newState = Object.assign({}, state);
   switch(action.type) {
     case REMOVE_SCENE:
-      console.log(action);
-      console.log(newState);
-      delete newState[action.scene.title];
-      console.log(newState);
+      delete newState[action.scene._id];
       return newState;
 
     case REQUEST_SCENES, REQUEST_SCENE:
       return newState;
 
     case RECEIVE_SCENE:
-      newState = merge(newState, {[action.scene.title]: action.scene});
+      newState = merge(newState, {[action.scene._id]: action.scene});
       return newState;
 
     case RECEIVE_SCENES:
       newState = {};
       action.scenes.forEach(scene => {
-        newState[scene.title] = scene;
+        newState[scene._id] = scene;
       });
       return newState;
 
