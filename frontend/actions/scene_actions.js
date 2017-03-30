@@ -5,7 +5,6 @@ export const RECEIVE_SCENE  = "RECEIVE_SCENE";
 export const REQUEST_SCENES = "REQUEST_SCENES";
 export const REQUEST_SCENE  = "REQUEST_SCENE";
 export const REMOVE_SCENE   = "REMOVE_SCENE";
-// export const UPDATE_SCENE   = "UPDATE_SCENE";
 
 export const receiveScenes = scenes => ({
   type: RECEIVE_SCENES, scenes
@@ -68,8 +67,9 @@ export const createScene = scene => {
     return fetch(request)
       .then(response => response.json())
       .then(ops => {
-        dispatch(removeScene(scene));
-        dispatch(receiveScene(ops[0]));
+        const newScene = ops[0];
+        dispatch(receiveScene(newScene));
+        return newScene;
       });
   };
 };

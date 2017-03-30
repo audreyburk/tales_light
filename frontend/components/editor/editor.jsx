@@ -9,11 +9,18 @@ class Editor extends React.Component {
 
   blankScene(e) {
     e.preventDefault();
-    this.props.focusScene({
-      title:  "untitled",
-      body:   "...",
-      new:    true
-    });
+    this.props.createScene({title: "...", body: "..."})
+      .then(scene => this.props.focusScene(scene._id));
+  }
+
+  renderEditorScene() {
+    return this.props.appScene ?
+      (<EditorScene scene={this.props.appScene}
+        receiveEdit={this.props.receiveEdit}
+        updateScene={this.props.updateScene}
+        deleteScene={this.props.deleteScene}
+        createScene={this.props.createScene}
+        focusScene={this.props.focusScene} />) : "";
   }
 
   render() {
@@ -23,12 +30,7 @@ class Editor extends React.Component {
         <EditorIndex allScenes={this.props.allScenes}
            focusScene={this.props.focusScene} />
 
-         <EditorScene scene={this.props.appScene}
-           receiveEdit={this.props.receiveEdit}
-           updateScene={this.props.updateScene}
-           deleteScene={this.props.deleteScene}
-           createScene={this.props.createScene} />
-
+         {this.renderEditorScene()}
         <button onClick={e => this.blankScene(e)}>New Scene</button>
       </section>
     );
