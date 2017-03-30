@@ -24,6 +24,7 @@ class Editor extends React.Component {
            focusScene={this.props.focusScene} />
 
          <EditorScene scene={this.props.appScene}
+           receiveEdit={this.props.receiveEdit}
            updateScene={this.props.updateScene}
            deleteScene={this.props.deleteScene}
            createScene={this.props.createScene} />

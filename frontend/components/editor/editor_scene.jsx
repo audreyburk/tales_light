@@ -12,8 +12,8 @@ class EditorScene extends React.Component {
 
   handleSave(e) {
     e.preventDefault();
-    const newScene = Object.assign({}, this.props.scene, this.state);
-    if(this.state.new) {
+    const newScene = this.state;
+    if(newScene.new) {
       delete newScene.new;
       this.props.createScene(newScene);
     } else {
@@ -28,7 +28,10 @@ class EditorScene extends React.Component {
 
   change(property, e) {
     e.preventDefault();
-    this.setState({[property]: e.currentTarget.value});
+    // this.setState({[property]: e.currentTarget.value});
+    const edit = Object.assign({}, this.props.scene,
+      {[property]: e.currentTarget.value});
+    this.props.receiveEdit(edit);
   }
 
   render() {

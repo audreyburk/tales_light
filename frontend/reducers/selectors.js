@@ -18,7 +18,8 @@ export const sceneByTitle = (state, title) => {
 };
 
 export const appScene = state => {
-  return state.scenes[state.app.sceneId];
+  const id = state.app.sceneId;
+  return state.edits[id] || state.scenes[id];
 };
 
 export const appView = state => {
