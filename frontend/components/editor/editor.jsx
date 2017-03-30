@@ -1,5 +1,6 @@
 import React from "react";
 import EditorScene from "./editor_scene";
+import EditorIndex from "./editor_index";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -8,20 +9,10 @@ class Editor extends React.Component {
 
   blankScene(e) {
     e.preventDefault();
-    this.props.receiveScene({
+    this.props.focusScene({
       title:  "untitled",
       body:   "...",
       new:    true
-    });
-    this.blanks++;
-  }
-
-  renderScenes() {
-    return this.props.allScenes.map(scene => {
-      return(<EditorScene scene={scene} key={scene._id}
-                updateScene={this.props.updateScene}
-                deleteScene={this.props.deleteScene}
-                createScene={this.props.createScene} />);
     });
   }
 
@@ -29,7 +20,14 @@ class Editor extends React.Component {
     return(
       <section>
         <h2>Editor</h2>
-        {this.renderScenes()}
+        <EditorIndex allScenes={this.props.allScenes}
+           focusScene={this.props.focusScene} />
+
+         <EditorScene scene={this.props.appScene}
+           updateScene={this.props.updateScene}
+           deleteScene={this.props.deleteScene}
+           createScene={this.props.createScene} />
+
         <button onClick={e => this.blankScene(e)}>New Scene</button>
       </section>
     );

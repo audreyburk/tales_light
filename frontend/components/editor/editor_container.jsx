@@ -1,14 +1,15 @@
 import { connect } from "react-redux";
 
-import { currentScene, allScenes } from "./../../reducers/selectors";
-import { focusScene, updateScene, receiveScene, createScene, deleteScene }
-  from './../../actions/scene_actions';
+import { appScene, allScenes, sceneById } from "./../../reducers/selectors";
+import { focusScene } from "./../../actions/app_actions";
+import { updateScene, receiveScene, createScene, deleteScene }
+  from "./../../actions/scene_actions";
 
 import Editor from "./editor";
 
 const mapStateToProps = state => ({
-  currentScene: currentScene(state),
-  allScenes:    allScenes(state)
+  appScene:  appScene(state),
+  allScenes: allScenes(state)
 });
 
 const mapDispatchToProps = dispatch => ({

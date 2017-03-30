@@ -1,13 +1,12 @@
 import { connect } from "react-redux";
 
-import { currentScene, sceneByTitle } from "./../../reducers/selectors";
-import { focusScene } from './../../actions/scene_actions';
-import { viewEditor } from './../../actions/view_actions';
+import { appScene, sceneByTitle } from "./../../reducers/selectors";
+import { viewEditor, focusScene } from "./../../actions/app_actions";
 
 import Reader from "./reader";
 
 const mapStateToProps = state => ({
-  currentScene: currentScene(state),
+  appScene:     appScene(state),
   sceneByTitle: title => sceneByTitle(state, title)
 });
 

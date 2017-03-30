@@ -8,8 +8,8 @@ class Reader extends React.Component {
 
   handleLink(e, title) {
     e.preventDefault();
-    const scene = this.props.sceneByTitle(title);
-    this.props.focusScene(scene);
+    const id = this.props.sceneByTitle(title)._id;
+    this.props.focusScene(id);
   }
 
   handleEdit(e) {
@@ -39,7 +39,7 @@ class Reader extends React.Component {
   render() {
     return(
       <section>
-        {this.parse(this.props.currentScene.body)}
+        {this.props.appScene ? this.parse(this.props.appScene.body) : ""}
         <button onClick={e => this.handleEdit(e)}>Edit Scene</button>
       </section>
 

@@ -18,8 +18,9 @@ window.receiveScenes = receiveScenes;
 window.fetchScenes   = fetchScenes;
 window.updateScene   = updateScene;
 
-import { allScenes } from "./reducers/selectors";
+import { allScenes, appScene } from "./reducers/selectors";
 window.allScenes = () => allScenes(store.getState());
+window.appScene = () => appScene(store.getState());
 // ---
 
 

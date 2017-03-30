@@ -17,10 +17,10 @@ export const sceneByTitle = (state, title) => {
   return result;
 };
 
-export const currentScene = state => {
-  return state.currentScene;
+export const appScene = state => {
+  return state.scenes[state.app.sceneId];
 };
 
-export const currentView = state => {
-  return state.currentView.view;
+export const appView = state => {
+  return state.app.view;
 };

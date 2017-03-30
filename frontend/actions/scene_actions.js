@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 
 export const RECEIVE_SCENES = "RECEIVE_SCENES";
 export const RECEIVE_SCENE  = "RECEIVE_SCENE";
-export const FOCUS_SCENE    = "FOCUS_SCENE";
 export const REQUEST_SCENES = "REQUEST_SCENES";
 export const REQUEST_SCENE  = "REQUEST_SCENE";
 export const REMOVE_SCENE   = "REMOVE_SCENE";
@@ -14,10 +13,6 @@ export const receiveScenes = scenes => ({
 
 export const receiveScene = scene => ({
   type: RECEIVE_SCENE, scene
-});
-
-export const focusScene = scene => ({
-  type: FOCUS_SCENE, scene
 });
 
 export const requestScenes = () => ({

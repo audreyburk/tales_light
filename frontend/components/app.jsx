@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   renderFrame() {
-    if(this.props.currentView === "reader") {
+    if(this.props.appView === "reader") {
       return <ReaderContainer />;
     } else {
       return <EditorContainer />;

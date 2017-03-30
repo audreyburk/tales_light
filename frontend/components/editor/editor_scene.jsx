@@ -6,6 +6,10 @@ class EditorScene extends React.Component {
     this.state = this.props.scene;
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.scene);
+  }
+
   handleSave(e) {
     e.preventDefault();
     const newScene = Object.assign({}, this.props.scene, this.state);
@@ -29,7 +33,7 @@ class EditorScene extends React.Component {
 
   render() {
     return(
-      <article className="editor-scene">
+      <section className="editor-scene">
         <label>Title:
           <input onChange={e => this.change("title", e)}
             value={this.state.title} />
@@ -40,7 +44,7 @@ class EditorScene extends React.Component {
         </label>
         <button onClick={e => this.handleSave(e)}>Save</button>
         <button onClick={e => this.handleDelete(e)}>Delete</button>
-      </article>
+      </section>
     );
   }
 }
