@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { appScene, allScenes, sceneById } from "./../../reducers/selectors";
-import { focusScene } from "./../../actions/app_actions";
+import { focusScene, viewReader } from "./../../actions/app_actions";
 import { updateScene, receiveScene, createScene, deleteScene }
   from "./../../actions/scene_actions";
 import { receiveEdit } from "./../../actions/edit_actions";
@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => ({
   receiveScene: scene => dispatch(receiveScene(scene)),
   createScene:  scene => dispatch(createScene(scene)),
   deleteScene:  scene => dispatch(deleteScene(scene)),
-  receiveEdit:  edit  => dispatch(receiveEdit(edit))
+  receiveEdit:  edit  => dispatch(receiveEdit(edit)),
+  viewReader:   ()    => dispatch(viewReader())
 });
 
 export default connect(

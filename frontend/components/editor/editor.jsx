@@ -7,6 +7,11 @@ class Editor extends React.Component {
     super(props);
   }
 
+  viewReader(e) {
+    e.preventDefault();
+    this.props.viewReader();
+  }
+
   blankScene(e) {
     e.preventDefault();
     this.props.createScene({title: "...", body: "..."})
@@ -32,6 +37,7 @@ class Editor extends React.Component {
 
          {this.renderEditorScene()}
         <button onClick={e => this.blankScene(e)}>New Scene</button>
+        <button onClick={e => this.viewReader(e)}>View in reader</button>
       </section>
     );
   }
