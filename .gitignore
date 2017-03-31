@@ -3,6 +3,7 @@
 /log/**
 /tmp/**
 /node_modules/
+/icons/
 *.log
 _overview.txt
 _scene_data.txt

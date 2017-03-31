@@ -22,8 +22,7 @@ class App extends React.Component {
 
   render() {
     return(
-      <main>
-        <h1>Tales</h1>
+      <main className="app">
         {this.renderFrame()}
       </main>
     );
