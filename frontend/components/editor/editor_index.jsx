@@ -1,7 +1,7 @@
 import React from "react";
 import EditorTile from "./editor_tile";
 
-class Editor extends React.Component {
+class EditorIndex extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,11 +16,10 @@ class Editor extends React.Component {
   render() {
     return(
       <section className="editor-index">
-        <h3>Scenes</h3>
         {this.renderScenes()}
       </section>
     );
   }
 }
 
-export default Editor;
+export default EditorIndex;

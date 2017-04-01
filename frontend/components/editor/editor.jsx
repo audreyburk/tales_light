@@ -1,21 +1,10 @@
 import React from "react";
 import EditorScene from "./editor_scene";
-import EditorIndex from "./editor_index";
+import EditorSidebar from "./editor_sidebar";
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  viewReader(e) {
-    e.preventDefault();
-    this.props.viewReader();
-  }
-
-  blankScene(e) {
-    e.preventDefault();
-    this.props.createScene({title: "...", body: "..."})
-      .then(scene => this.props.focusScene(scene._id));
   }
 
   renderEditorScene() {
@@ -25,20 +14,20 @@ class Editor extends React.Component {
         updateScene={this.props.updateScene}
         deleteScene={this.props.deleteScene}
         createScene={this.props.createScene}
-        focusScene={this.props.focusScene} />) : "";
+        focusScene={this.props.focusScene}
+        viewReader={this.props.viewReader}  />) :
+        <section className="editor-scene"></section>;
   }
 
   render() {
     return(
-      <section>
-        <h2>Editor</h2>
-        <EditorIndex allScenes={this.props.allScenes}
-           focusScene={this.props.focusScene} />
+      <section className="editor">
+        <EditorSidebar allScenes={this.props.allScenes}
+           focusScene={this.props.focusScene}
+           createScene={this.props.createScene} />
 
          {this.renderEditorScene()}
-        <button onClick={e => this.blankScene(e)}>New Scene</button>
-        <button onClick={e => this.viewReader(e)}>View in reader</button>
-      </section>
+       </section>
     );
   }
 }

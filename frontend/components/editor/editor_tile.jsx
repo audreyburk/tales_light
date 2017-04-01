@@ -13,7 +13,7 @@ class EditorTile extends React.Component {
 
   render() {
     return(
-      <article className="editor-tile" onClick={e=>this.focus(e)}>
+      <article className="editor-tile link" onClick={e=>this.focus(e)}>
         {this.props.scene.title}
       </article>
     );

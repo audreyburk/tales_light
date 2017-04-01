@@ -41,20 +41,14 @@ class Reader extends React.Component {
       <section className="reader">
         <ul className="reader-buttons">
           <li className="icon edit-icon"
+            title="Edit Scene"
             onClick={e => this.handleEdit(e)}></li>
-          <li className="icon lights-on-icon"></li>
-          <li className="icon new-icon"></li>
-          <li className="icon lights-off-icon"></li>
-          <li className="icon view-icon"></li>
         </ul>
         <article className="reader-body">
           {this.props.appScene ? this.parse(this.props.appScene.body) : ""}
         </article>
       </section>
-
     );
-
-
   }
 }
 
