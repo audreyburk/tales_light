@@ -41,7 +41,6 @@ Scenes.create = function(scene, cb) {
       (errB, newScene) => {
         assert.equal(errB, null);
         db.close();
-        console.log(newScene.ops);
         cb(newScene.ops);
       }
     );

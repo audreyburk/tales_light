@@ -1,7 +1,4 @@
-import {
-  VIEW_READER,
-  VIEW_EDITOR,
-  FOCUS_SCENE
+import { VIEW_READER, VIEW_EDITOR, FOCUS_SCENE
 } from "./../actions/app_actions";
 
 // testing only

@@ -14,7 +14,7 @@ class EditorSidebar extends React.Component {
 
   render() {
     return(
-      <sidebar className="editor-sidebar">
+      <aside className="editor-sidebar">
         <input placeholder="search"></input>
         <EditorIndex allScenes={this.props.allScenes}
           focusScene={this.props.focusScene} />
@@ -23,7 +23,7 @@ class EditorSidebar extends React.Component {
             title="New Scene"
             onClick={e => this.newScene(e)}></li>
         </ul>
-      </sidebar>
+      </aside>
     );
   }
 }
